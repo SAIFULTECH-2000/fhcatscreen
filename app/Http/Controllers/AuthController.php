@@ -5,61 +5,110 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\users;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Auth;
+use Exception;
+use App\User;
 class AuthController extends Controller
 {
-    //AJAX[login.php]
-   function login(Request $req)
+    public function handleGoogleCallback()
     {
+        
+        try {
+         $user = Socialite::driver('google')->stateless()->user();   
+            $check = users::where('adminemail', $user->email)->exists();
+            if ($check) {
+                $users = users::where('adminemail', $user->email)
+                    ->get()
+                    ->first();
 
-        // Validator
+                $adminid = $users->adminid;
+                $adminusername = $users->adminusername;
+                $adminemail = $users->adminemail;
+                $password = $users->adminpassword;
+                $adminstate = $users->adminstate;
+                $adminlocation = $users->adminlocation;
+                $adminlevel = $users->adminlevel;
+                $time = $_SERVER['REQUEST_TIME'];
 
+
+                        Session::put('adminid', $adminid);
+                        Session::put('adminusername', $adminusername);
+                        Session::put('adminemail', $adminemail);
+                        Session::put('lastactivity', $time);
+                        Session::put('adminlocation', $adminlocation);
+                        Session::put('adminlevel', $adminlevel);
+                        return redirect('/dashboard')->with('message', 'You have successfully signed into your account.');
+            } else {
+                return redirect()
+                    ->back()
+                    ->with('fails', 'Unregistered user email.');
+            }
+        } catch (Exception $e) {
+        echo "error";
+            dd($e->getMessage());
+        
+        }
+    }
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    function login(Request $req)
+    {
         $messages = [
             'required' => 'diperlukan',
         ];
-
         $rules = [
-            'email' => 'required',
-            'password' => 'required'
+            'adminemail' => 'required',
+            'adminpassword' => 'required',
         ];
-
         $validator = $req->validate($rules, $messages);
-
         $data = $req->input();
-
-        // Select eloquent
-        $check = users::where('adminemail', $req->email)->exists();
+        $check = users::where('adminemail', $req->adminemail)->exists();
 
         if ($check) {
-            $users = users::where('adminemail', $req->email)
+            $users = users::where('adminemail', $req->adminemail)
                 ->get()
                 ->first();
 
             $adminid = $users->adminid;
             $adminusername = $users->adminusername;
             $adminemail = $users->adminemail;
-            $password = $users->password;
+            $password = $users->adminpassword;
+            $adminstate = $users->adminstate;
+            $adminlocation = $users->adminlocation;
+            $adminlevel = $users->adminlevel;
             $time = $_SERVER['REQUEST_TIME'];
-		
+
             if ($password == $data['adminpassword']) {
-                // Save into session
-                Session::put('adminid', $adminid);
-                Session::put('adminusername', $adminusername);   //put the data and in session
-                Session::put('adminemail', $adminemail);
-                Session::put('lastactivity',$time);
-                return     redirect('/dashboard')->with('login', 'You have successfully signed into your account.');
+                if ($data['adminstate'] == $adminstate && $data['adminlocation'] == $adminlocation) {
+                    Session::put('adminid', $adminid);
+                    Session::put('adminusername', $adminusername);
+                    Session::put('adminemail', $adminemail);
+                    Session::put('lastactivity', $time);
+                    Session::put('adminlocation', $adminlocation);
+                    Session::put('adminlevel', $adminlevel);
+                    return redirect('/dashboard')->with('message', 'You have successfully signed into your account.');
+                } else {
+                    return redirect()
+                        ->back()
+                        ->with('fails', 'Wrong email / state / location. You need to create new one with same email for other states and locations');
+                }
             } else {
-                return redirect()->back()->with('fails', 'Wrong password entered');
+                return redirect()
+                    ->back()
+                    ->with('fails', 'Wrong password entered');
             }
         } else {
-             return redirect()->back()->with('fails', 'Unregistered user email.');
+            return redirect()
+                ->back()
+                ->with('fails', 'Unregistered user email.');
         }
-
-        // return $check;
     }
     function logout()
     {
         Session::flush();
-        return redirect('/')->with('logout', 'You have successfully logged out.');;
+        return redirect('/')->with('logout', 'You have successfully logged out.');
     }
-
 }
