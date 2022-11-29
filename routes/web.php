@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Crudcontroller;
 use App\Http\Controllers\patientsdashboard;
+use Illuminate\Support\Facades\Auth;
+
 //LOGIN
 Route::get('/', function () {
     return view('index');
@@ -86,3 +88,7 @@ Route::get('/usmedped/{id}',[patientsdashboard::class,'usmedped']);
 //
 Route::get('auth/google',[AuthController::class,'redirectToGoogle']);
 Route::get('auth/google/callback',[AuthController::class,'handleGoogleCallback']);
+Route::get('auth/admin-register',function(){
+    return view('adminregister');
+});
+Route::post('registeradmin',[AuthController::class,'registeradmin']);

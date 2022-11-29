@@ -106,6 +106,41 @@ class AuthController extends Controller
                 ->with('fails', 'Unregistered user email.');
         }
     }
+    function registeradmin(Request $request)
+    {
+        $adminname = $request->adminname;
+        $adminemail = $request->adminemail;
+        $adminstaffid = $request->adminstaffid;
+        $adminlocation = $request->adminlocation;
+        $adminstate = $request->adminstate;
+        $adminaddress = $request->adminaddress;
+	    $adminusername = $request->adminusername;
+	    $adminpassword = $request->adminpassword;
+        $adminlevel = "staff";
+        $check = users::where('adminemail', $request->adminemail)->exists();
+        if($check){
+              return redirect()
+                ->back()
+                ->with('fails', 'this email has been register');
+        }else{
+            $registerdate = date("Y-m-d");
+            $data =[
+                'adminname'=> $adminname, 
+                'adminstaffid'=>$adminstaffid,
+                'adminstate' => $adminstate, 
+                'adminlocation'=>$adminlocation, 
+                'adminaddress'=>$adminaddress,
+                'adminemail'=> $adminemail,
+                'adminpassword'=> $adminpassword, 
+                'adminusername'=>$adminusername, 
+                'adminlevel'=>$adminlevel,
+                'registerdate'=> $registerdate,
+            ];
+            users::create($data);
+            return redirect('/')->with('logout', 'You have successfully register.');
+        }
+    
+    }
     function logout()
     {
         Session::flush();

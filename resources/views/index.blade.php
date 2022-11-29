@@ -51,7 +51,7 @@
                                 </a> 
 	</div>
 	<div class="row">
-		<div class="col mb-3"><button type="button" class="btn btn-success btn-block but-color-none" onClick="window.location.href='admin-registration.php'">Register <i class="fa fa-address-card-o"></i></button></a></div>
+		<div class="col mb-3"><button type="button" class="btn btn-success btn-block but-color-none" onClick="window.location.href='{{URL::to('auth/admin-register')}}'">Register <i class="fa fa-address-card-o"></i></button></a></div>
 		<div class="col mb-3"><button type="submit" class="btn btn-dark btn-block but-color-navy-blue" id ="submit">Login <i class="fa fa-sign-in"></i></button></div>
 	</div>
 	  <!--<div class="row">
