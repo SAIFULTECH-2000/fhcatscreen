@@ -49,7 +49,7 @@
                             <small class="text-muted">Confirm New Password</small>
                             <input type="password" value="" class="form-control" name="newadminrepassword"
                                 id="newadminrepassword" placeholder="Confirm New Password" required>
-                            <span id='messagepas'></span>
+                            <span id='messagepass'></span>
                         </div>
                     </div>
                     <hr class="mb-4">
