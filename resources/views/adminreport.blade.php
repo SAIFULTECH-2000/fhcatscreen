@@ -165,7 +165,7 @@
                                         <td>{{$patient->result_us; }}</td>
                                         <td>
                                             <button type="button"
-                                                onclick="location.href='{{URL::to('/patient-dashboard')}}/{{$patient->patientid}}'"
+                                                onclick="location.href='{{URL::to('/patient-dashboards')}}/{{$patient->patientid}}'"
                                                 class="btn-sm btn-success btn-block but-color-purple-small">View</button>
                                         </td>
                                     </tr>
