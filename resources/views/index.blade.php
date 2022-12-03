@@ -46,13 +46,18 @@
 			<br>
 	<div class="mb-3">
 	
-	<a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
-                                  <strong>Login With Google</strong>
-                                </a> 
-	</div>
+    
+        <input type="password" name="adminpassword" class="form-control">
+    
 	<div class="row">
 		<div class="col mb-3"><button type="button" class="btn btn-success btn-block but-color-none" onClick="window.location.href='{{URL::to('auth/admin-register')}}'">Register <i class="fa fa-address-card-o"></i></button></a></div>
 		<div class="col mb-3"><button type="submit" class="btn btn-dark btn-block but-color-navy-blue" id ="submit">Login <i class="fa fa-sign-in"></i></button></div>
+	</div>
+	<div class="row">
+	    	<a href="{{ url('auth/google') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
+                                  <strong>Login With Google</strong>
+                                </a> 
+	</div>
 	</div>
 	  <!--<div class="row">
 		<div class="col mb-3"><button type="button" class="btn btn-success btn-block but-color-none" onClick="window.location.href='user-index.php'">User Login <i class="fa fa-user-circle-o"></i></button></a></div>

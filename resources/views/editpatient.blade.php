@@ -159,7 +159,7 @@
 <div class="content container content-wrapper2">
     <div class="row">
     <div class="col-custom2 boxShadow-top form-group">
-            <form id="registration-form" method="post" action="/changepatient">
+            <form id="registration-form" method="post" action="{{URL::to('/changepatient')}}">
                 @csrf
             <!-- <div class="panel-body two-col"> -->
                 <!-- first question -->

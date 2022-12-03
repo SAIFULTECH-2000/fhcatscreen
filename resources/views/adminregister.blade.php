@@ -25,7 +25,8 @@
 <div class="row">
 <div class="col-custom2 boxShadow-top form-group">
             <form name="registration-form" id="registration-form" method="post" action="{{URL::to('registeradmin')}}">
-                    <div class="row">
+                @csrf   
+                <div class="row">
                         <div class="col-md-6 mb-3">
                             <input type="text" value="" class="form-control" name="adminname" id="adminname" pattern="[a-zA-Z ']{1,}" title="All must be characters" placeholder="Name" required>
                         </div>

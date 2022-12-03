@@ -165,7 +165,7 @@
                                         <td>{{$patient->result_us; }}</td>
                                         <td>
                                             <button type="button"
-                                                onclick="location.href='/patient-dashboard/{{$patient->patientid}}'"
+                                                onclick="location.href='{{URL::to('/patient-dashboard')}}/{{$patient->patientid}}'"
                                                 class="btn-sm btn-success btn-block but-color-purple-small">View</button>
                                         </td>
                                     </tr>
@@ -177,7 +177,7 @@
                             </table>
                             <div class="row">
                                 <div class="col-md-1 col-2">
-                                    <button type="button" onclick="location.href='/dashboard'"
+                                    <button type="button" onclick="location.href='{{URL::to('/dashboard')}}'"
                                         class="btn btn-dark btn-block but-custom2"><i
                                             class="fa fa-long-arrow-left fa-lg"></i></button>
                                 </div>

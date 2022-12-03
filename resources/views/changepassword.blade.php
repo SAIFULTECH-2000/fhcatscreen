@@ -49,13 +49,13 @@
                             <small class="text-muted">Confirm New Password</small>
                             <input type="password" value="" class="form-control" name="newadminrepassword"
                                 id="newadminrepassword" placeholder="Confirm New Password" required>
-                            <span id='messagepass'></span>
+                            <span id='messagepas'></span>
                         </div>
                     </div>
                     <hr class="mb-4">
                     <div class="row">
                         <div class="col-md-2">
-                            <button type="button" onclick="location.href='/dashboard'"
+                            <button type="button" onclick="location.href='{{URL::to('/dashboard')}}'"
                                 class="btn btn-dark btn-block but-custom2"><i
                                     class="fa fa-long-arrow-left fa-lg"></i></button>
                             <!-- <button type="button" onClick="window.location.href='dashboard.php'" class="btn btn-dark btn-block but-color-none2">Back Home</button> -->
